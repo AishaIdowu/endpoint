@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
 
 
 
@@ -9,25 +10,27 @@ const app = express();
 
 
 
-app.get('/info', (req, res) => {
-        const SlackName = 'Aisha Idowu';
+
+app.get('/api', (req, res) => {
+        const SlackName = req.query.slackName;
         const currentDayOfWeek = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-        const currentUTCOffset = new Date().getTimezoneOffset();
-        const track = 'Backend';
-        const github_FileURL = '';
-        const github_RepoURL = 'https://github.com/AishaIdowu/endpoint';
+        const currentUTC = new Date().toISOString();
+        const track = req.query.track;
+        const github_file_url = 'https://github.com/AishaIdowu/endpoint/blob/main/app.js';
+        const github_repo_url = 'https://github.com/AishaIdowu/endpoint';
+        const status_code = 200;
 
         const response = {
             SlackName,
             currentDayOfWeek,
-            currentUTCOffset,
+            currentUTC,
             track,
-            github_FileURL,
-            github_RepoURL,
-            statusCode: 200
+            github_file_url,
+            github_repo_url,
+            status_code
         };
 
-        res.json(response)
+        res.status(200).json(response)
 
        
     
