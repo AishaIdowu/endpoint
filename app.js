@@ -7,23 +7,28 @@ app.use(express.json());
 
 
 
-
-
-
-
 app.get('/api', (req, res) => {
-        const SlackName = req.query.slackName;
-        const currentDayOfWeek = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-        const currentUTC = new Date().toISOString();
+        const slack_name = req.query.slack_name;
         const track = req.query.track;
+
+        const current_day = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long' 
+        });
+
+        // UTC Time
+        const utc_time = new Date().toISOString();
+        const formatted_utc_time = utc_time.slice(0, -5) + "Z";
+        
         const github_file_url = 'https://github.com/AishaIdowu/endpoint/blob/main/app.js';
         const github_repo_url = 'https://github.com/AishaIdowu/endpoint';
+        
         const status_code = 200;
 
+
         const response = {
-            SlackName,
-            currentDayOfWeek,
-            currentUTC,
+            slack_name,
+            current_day,
+            utc_time:formatted_utc_time,
             track,
             github_file_url,
             github_repo_url,
